@@ -1,0 +1,96 @@
+[gd_scene load_steps=6 format=3 uid="uid://cqcb7i40w2ryd"]
+
+[ext_resource type="Script" path="res://Scripts/bonfire.gd" id="1_dyiy0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xpxcl"]
+
+[sub_resource type="Gradient" id="Gradient_deleh"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_jy1o1"]
+gradient = SubResource("Gradient_deleh")
+width = 800
+height = 800
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.85, 0.85)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pwtho"]
+
+[node name="Bonfire" type="Node2D"]
+position = Vector2(1172, 437)
+scale = Vector2(1.71824, 1.24967)
+script = ExtResource("1_dyiy0")
+
+[node name="BonfireArea" type="Area2D" parent="."]
+scale = Vector2(1, 1)
+collision_mask = 3
+
+[node name="Polygon2D" type="Polygon2D" parent="BonfireArea"]
+scale = Vector2(1, 1)
+color = Color(0.662745, 0.698039, 0.635294, 1)
+polygon = PackedVector2Array(2.32794, -108.829, -16.8777, -106.428, -39.5754, -96.0256, -57.0352, -79.2211, -69.257, -60.8162, -79.7328, -32.0085, -83.2247, 6.4017, -80.3148, 29.6079, -69.8389, 58.4156, -57.0352, 80.0213, -36.0834, 96.0256, -20.3697, 104.028, 5.81989, 108.029, 27.9356, 102.427, 51.2152, 86.423, 64.601, 67.2179, 77.9868, 36.8098, 84.9707, -13.6036, 76.8229, -42.4113, 68.675, -64.017, 58.7811, -76.8204, 46.5593, -89.6238, 29.6816, -100.027, 14.5498, -106.428)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BonfireArea"]
+position = Vector2(-3.8147e-06, 0)
+scale = Vector2(8.31773, 10.7542)
+shape = SubResource("CircleShape2D_xpxcl")
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+scale = Vector2(1, 1)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_jy1o1")
+
+[node name="Fire" type="Node2D" parent="."]
+
+[node name="Polygon2D3" type="Polygon2D" parent="Fire"]
+scale = Vector2(1.67454, 1.96319)
+color = Color(0.6, 0.239216, 0.254902, 1)
+polygon = PackedVector2Array(0.58197, 2.40067, -15.1318, -11.203, 1.164, -40.8109, 16.2958, -6.4017)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Fire"]
+scale = Vector2(1, 1)
+color = Color(0.803922, 0.407843, 0.239216, 1)
+polygon = PackedVector2Array(0.58197, 2.40067, -15.1318, -11.203, 1.164, -40.8109, 16.2958, -6.4017)
+
+[node name="Polygon2D" type="Polygon2D" parent="Fire"]
+position = Vector2(1.74597, 0)
+scale = Vector2(1, 1)
+color = Color(0.470588, 0.541176, 0.529412, 1)
+polygon = PackedVector2Array(8.14789, -4.80127, -1.164, 2.40067, -8.14789, -7.2019, 1.164, -20.0053)
+
+[node name="wood" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="wood"]
+rotation = -1.99222
+scale = Vector2(1, 1)
+color = Color(0.6, 0.498039, 0.45098, 1)
+polygon = PackedVector2Array(-22, -42, 0, -3, -8, 3, -30, -38)
+
+[node name="Polygon2D2" type="Polygon2D" parent="wood"]
+rotation = -2.62301
+scale = Vector2(1, 1)
+color = Color(0.6, 0.498039, 0.45098, 1)
+polygon = PackedVector2Array(-22, -42, 0, -3, -8, 3, -30, -38)
+
+[node name="Polygon2D3" type="Polygon2D" parent="wood"]
+rotation = 2.99206
+scale = Vector2(1, 1)
+color = Color(0.6, 0.498039, 0.45098, 1)
+polygon = PackedVector2Array(-22, -42, 0, -3, -8, 3, -30, -38)
+
+[node name="Polygon2D4" type="Polygon2D" parent="wood"]
+scale = Vector2(1, 1)
+color = Color(0.6, 0.498039, 0.45098, 1)
+polygon = PackedVector2Array(-2.32794, 2.40067, -29.0995, 19.2051, -25.0256, 7.20193, -3.49194, -4.00104)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(2.32797, -12.0032)
+scale = Vector2(3.80095, 4.77019)
+shape = SubResource("CapsuleShape2D_pwtho")
+
+[connection signal="body_entered" from="BonfireArea" to="." method="_on_bonfire_area_body_entered"]
+[connection signal="body_exited" from="BonfireArea" to="." method="_on_bonfire_area_body_exited"]

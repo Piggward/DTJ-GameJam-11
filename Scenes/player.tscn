@@ -1,0 +1,208 @@
+[gd_scene load_steps=13 format=3 uid="uid://cvxshxkyhi8hw"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_eim3k"]
+[ext_resource type="Script" path="res://Scripts/torch.gd" id="2_ke26v"]
+[ext_resource type="Script" path="res://Scripts/detector.gd" id="3_jixvp"]
+[ext_resource type="Script" path="res://Scripts/light_detector.gd" id="4_dg4wy"]
+
+[sub_resource type="Animation" id="Animation_7i1m7"]
+resource_name = "torch_attack"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody2D/Torch:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.666667, 0.766667, 0.833333, 0.966667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.816814, 1.14319, 0.490438, 0.000872423, -0.488692, -0.715585, 0.000872423, 0.490438, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterBody2D/Torch:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.666667, 0.766667, 0.833333, 0.966667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(35, -10), Vector2(40, 15), Vector2(41, 18), Vector2(36, -29), Vector2(1.99998, -40), Vector2(-32, -35), Vector2(-35, -25), Vector2(1.99998, -40), Vector2(36, -29), Vector2(35, -10), Vector2(25, -7)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterBody2D/Torch/AttackArea/CollisionShape2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.833333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterBody2D/Torch/AttackArea")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.833333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [true],
+"method": &"disable"
+}, {
+"args": [false],
+"method": &"disable"
+}, {
+"args": [true],
+"method": &"disable"
+}]
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterBody2D/Torch/PointLight2D")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [-3],
+"method": &"change_level"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_nnyfx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CharacterBody2D/Torch:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CharacterBody2D/Torch:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(25, -7)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("CharacterBody2D/Torch/AttackArea/CollisionShape2D:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p03dh"]
+_data = {
+"RESET": SubResource("Animation_nnyfx"),
+"torch_attack": SubResource("Animation_7i1m7")
+}
+
+[sub_resource type="Gradient" id="Gradient_6ecf7"]
+offsets = PackedFloat32Array(0, 0.974026)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_47ay5"]
+gradient = SubResource("Gradient_6ecf7")
+width = 750
+height = 750
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.85, 0.85)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oxd0b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_52gpt"]
+size = Vector2(23, 50)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qgppn"]
+size = Vector2(36, 35)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+z_index = 5
+position = Vector2(927, 352)
+collision_layer = 2
+collision_mask = 7
+script = ExtResource("1_eim3k")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Torch" type="Node2D" parent="."]
+position = Vector2(35, -10)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Torch"]
+root_node = NodePath("../../..")
+libraries = {
+"": SubResource("AnimationLibrary_p03dh")
+}
+
+[node name="PointLight2D" type="PointLight2D" parent="Torch"]
+position = Vector2(1, -11)
+shadow_enabled = true
+texture = SubResource("GradientTexture2D_47ay5")
+script = ExtResource("2_ke26v")
+light_levels = Array[int]([100, 400, 450, 500, 550, 600, 650, 700, 750])
+
+[node name="Detector" type="Area2D" parent="Torch/PointLight2D"]
+collision_mask = 4
+script = ExtResource("3_jixvp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Torch/PointLight2D/Detector"]
+shape = SubResource("CircleShape2D_oxd0b")
+
+[node name="Timer" type="Timer" parent="Torch/PointLight2D"]
+wait_time = 5.0
+
+[node name="Polygon2D" type="Polygon2D" parent="Torch"]
+color = Color(0.588235, 0.309804, 0, 1)
+polygon = PackedVector2Array(-2, 12, 4, 12, 4, -10, -2, -10)
+
+[node name="Polygon2D2" type="Polygon2D" parent="Torch"]
+color = Color(1, 1, 0, 1)
+polygon = PackedVector2Array(-2, -10, 1, -17, 4, -10)
+
+[node name="AttackArea" type="Area2D" parent="Torch"]
+collision_mask = 4
+script = ExtResource("4_dg4wy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Torch/AttackArea"]
+visible = false
+position = Vector2(1.5, -12)
+shape = SubResource("RectangleShape2D_52gpt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0.5)
+shape = SubResource("RectangleShape2D_qgppn")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(1, 0, 1, 1)
+polygon = PackedVector2Array(-15, -16, 19, -16, 19, 18, -16, 18)
+
+[connection signal="area_entered" from="Torch/PointLight2D/Detector" to="Torch/PointLight2D/Detector" method="_on_area_entered"]
+[connection signal="area_exited" from="Torch/PointLight2D/Detector" to="Torch/PointLight2D/Detector" method="_on_area_exited"]
+[connection signal="area_entered" from="Torch/AttackArea" to="Torch/AttackArea" method="_on_area_entered"]

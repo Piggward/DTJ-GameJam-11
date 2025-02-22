@@ -1,0 +1,187 @@
+[gd_scene load_steps=4 format=3 uid="uid://lirb1qcqidpl"]
+
+[ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_wqwso"]
+[ext_resource type="Script" path="res://Scripts/enemy_detector.gd" id="2_7h8b5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ir6aa"]
+size = Vector2(40, 37)
+
+[node name="Enemy" type="Area2D"]
+position = Vector2(384, 245)
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_wqwso")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ir6aa")
+
+[node name="visuals" type="Node2D" parent="."]
+rotation = 2.27468
+
+[node name="Polygon2D" type="Polygon2D" parent="visuals"]
+color = Color(0.478431, 0.188235, 0.270588, 1)
+polygon = PackedVector2Array(0, -18, -19, 0, -9.25107, 10.2905, -1, 19, 19, 2)
+
+[node name="Polygon2D2" type="Polygon2D" parent="visuals"]
+position = Vector2(4.16779, -0.428375)
+rotation = -0.0648443
+color = Color(0.478431, 0.188235, 0.270588, 1)
+polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+
+[node name="Polygon2D3" type="Polygon2D" parent="visuals"]
+position = Vector2(-2.83221, -5.42838)
+rotation = -0.0648443
+color = Color(0.478431, 0.188235, 0.270588, 1)
+polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+
+[node name="Polygon2D4" type="Polygon2D" parent="visuals"]
+position = Vector2(-7.83221, -10.4284)
+rotation = -0.0648443
+color = Color(0.478431, 0.188235, 0.270588, 1)
+polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+
+[node name="Polygon2D5" type="Polygon2D" parent="visuals"]
+position = Vector2(44.7482, -26.3288)
+rotation = 0.245227
+scale = Vector2(1, 1)
+color = Color(0.478431, 0.188235, 0.270588, 1)
+polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+
+[node name="Polygon2D6" type="Polygon2D" parent="visuals"]
+position = Vector2(37.7482, -31.3288)
+rotation = 0.245227
+scale = Vector2(1, 1)
+color = Color(0.478431, 0.188235, 0.270588, 1)
+polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+
+[node name="Polygon2D7" type="Polygon2D" parent="visuals"]
+position = Vector2(32.7482, -36.3288)
+rotation = 0.245227
+scale = Vector2(1, 1)
+color = Color(0.478431, 0.188235, 0.270588, 1)
+polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+
+[node name="RayCasts" type="Node2D" parent="."]
+script = ExtResource("2_7h8b5")
+
+[node name="RayCast2D" type="RayCast2D" parent="RayCasts"]
+target_position = Vector2(0, 380)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="RayCasts"]
+rotation = -0.532596
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D3" type="RayCast2D" parent="RayCasts"]
+rotation = -1.13969
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D4" type="RayCast2D" parent="RayCasts"]
+rotation = -1.55671
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D5" type="RayCast2D" parent="RayCasts"]
+rotation = 0.573627
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D6" type="RayCast2D" parent="RayCasts"]
+rotation = 1.08332
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D8" type="RayCast2D" parent="RayCasts"]
+rotation = -3.1392
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D9" type="RayCast2D" parent="RayCasts"]
+rotation = -3.6718
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D10" type="RayCast2D" parent="RayCasts"]
+rotation = -4.27889
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D11" type="RayCast2D" parent="RayCasts"]
+rotation = -4.69592
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D12" type="RayCast2D" parent="RayCasts"]
+rotation = -2.56558
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D13" type="RayCast2D" parent="RayCasts"]
+rotation = -2.05588
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D7" type="RayCast2D" parent="RayCasts"]
+rotation = 0.227884
+target_position = Vector2(0, 380)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D14" type="RayCast2D" parent="RayCasts"]
+rotation = -0.304712
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D15" type="RayCast2D" parent="RayCasts"]
+rotation = -0.911803
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D16" type="RayCast2D" parent="RayCasts"]
+rotation = -1.32883
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D17" type="RayCast2D" parent="RayCasts"]
+rotation = 0.801511
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D18" type="RayCast2D" parent="RayCasts"]
+rotation = 1.31121
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D19" type="RayCast2D" parent="RayCasts"]
+rotation = -2.91132
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D20" type="RayCast2D" parent="RayCasts"]
+rotation = -3.44391
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D21" type="RayCast2D" parent="RayCasts"]
+rotation = -4.05101
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D22" type="RayCast2D" parent="RayCasts"]
+rotation = -4.46803
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D23" type="RayCast2D" parent="RayCasts"]
+rotation = -2.33769
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D24" type="RayCast2D" parent="RayCasts"]
+rotation = -1.82799
+target_position = Vector2(0, 380)
+collision_mask = 3
