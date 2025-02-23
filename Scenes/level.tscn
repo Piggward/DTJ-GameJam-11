@@ -148,9 +148,6 @@ position = Vector2(996, -479)
 
 [node name="Lighting" parent="." instance=ExtResource("7_vo3ey")]
 
-[node name="DirectionalLight2D" parent="Lighting" index="1"]
-visible = true
-
 [connection signal="body_entered" from="TinderboxArea" to="TinderboxArea" method="_on_body_entered"]
 [connection signal="body_entered" from="TinderboxArea3" to="TinderboxArea3" method="_on_body_entered"]
 [connection signal="body_entered" from="TinderboxArea2" to="TinderboxArea2" method="_on_body_entered"]

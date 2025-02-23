@@ -1,8 +1,11 @@
 extends Node2D
 
+@onready var audio_stream_player = $AudioStreamPlayer
+const THANK_YOU_DAD = preload("res://SFX/thank_you_dad.mp3")
 @export var gold_spawn_max_distance: float
 @export var minimum_gold_spawn: float
 @export var diff: float
+@export var win_cost: int
 const GOLD = preload("res://Scenes/gold_area.tscn")
 var player: Player
 var spawning = false
@@ -21,30 +24,79 @@ var current_upgrade_cost = 10
 @onready var tutorial_text_container = $CanvasLayer/TutorialText
 @onready var audio_stream_player_2d = $AudioStreamPlayer2D
 @onready var win_container = $CanvasLayer/WinContainer
+@onready var game_over_container = $CanvasLayer/GameOverContainer
+@onready var game_over_label = $CanvasLayer/GameOverContainer/PanelContainer/VBoxContainer/Label
+@onready var directional_light_2d = $Lighting/DirectionalLight2D
+@onready var win_item = $CanvasLayer/Shop/PanelContainer3/PanelContainer/Label
+@export var movement_speed_upgrade_cost: int
+@export var player_gold: int
+var m_upg = 0
+@onready var m_upg_label = $CanvasLayer/Shop/MovementSpeedUpgrade/PanelContainer/Label
+@onready var movement_speed_upgrade = $CanvasLayer/Shop/MovementSpeedUpgrade
 
-var max_distance = 0.0
+var max_distance = 5700
 var current_distance_goal = 0.0
 @onready var spider_spawner = $SpiderSpawner
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
-	max_distance = ruby_area.get_child(0).shape.radius
+	player.gold = player_gold
 	set_distance_goal()
 	update_shop()
+	directional_light_2d.visible = true
+	win_item.text = str(win_cost) + " GOLD 
+(Press F to buy)"
+	m_upg_label.text = str(movement_speed_upgrade_cost) + " GOLD 
+(Press G to buy)"
+	gold_label.text = str(player.gold)
 	pass # Replace with function body.
 	
 func win_game():
-	if player.gold >= 500:
-		win_container.visible = true
+	if player.gold >= 250:
+		game_over_container.visible = true
+		game_over_label.text = "You won!! You're the best dad ever!!"
+		audio_stream_player_2d.stop()
+		audio_stream_player_2d.stream = THANK_YOU_DAD
+		audio_stream_player.play()
 		self.process_mode = Node.PROCESS_MODE_DISABLED
+		await get_tree().create_timer(3.5).timeout
+		audio_stream_player.volume_db -= 6
+		audio_stream_player_2d.play()
 	
 func purchase_upgrade():
 	if player.gold >= current_upgrade_cost:
 		player.gold -= current_upgrade_cost
-		gold_label.text = "Gold: " + str(player.gold)
-		current_upgrade_cost += 10
+		gold_label.text = str(player.gold)
+		current_upgrade_cost += 3
 		update_shop()
+		return true
+	else:
+		return false
+		
+func purchase_movement():
+	if m_upg == 2:
+		return false
+	if player.gold >= movement_speed_upgrade_cost:
+		player.gold -= movement_speed_upgrade_cost
+		gold_label.text = str(player.gold)
+		movement_speed_upgrade_cost *= 1.5
+		player.speed += 50
+		m_upg_label.text = str(movement_speed_upgrade_cost) + " GOLD 
+(Press G to buy)"
+		m_upg += 1
+		if m_upg == 2:
+			movement_speed_upgrade.queue_free()
+		return true
+	else:
+		return false
+		
+func purchase_shield():
+	if player.has_shield:
+		return false
+	if player.gold >= 40:
+		player.gold -= 40
+		gold_label.text = str(player.gold)
 		return true
 	else:
 		return false
@@ -122,4 +174,14 @@ func _on_safe_area_body_exited(body):
 		else:
 			tutorial_text_container.visible = false
 		
+	pass # Replace with function body.
+
+
+func _on_play_again_button_up():
+	get_tree().change_scene_to_file("res://Scenes/level_2.tscn")
+	pass # Replace with function body.
+
+
+func _on_exit_button_up():
+	get_tree().quit()
 	pass # Replace with function body.

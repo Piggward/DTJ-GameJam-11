@@ -75,7 +75,11 @@ func _process(delta: float) -> void:
 
 func _on_body_entered(body):
 	if body is Player and not dead:
-		var gameover = get_tree().get_first_node_in_group("gameover")
-		gameover.visible = true
-		get_tree().root.process_mode = Node.PROCESS_MODE_DISABLED
+		if body.has_shield:
+			body.lose_shield()
+			self.die()
+		else:
+			var gameover = get_tree().get_first_node_in_group("gameover")
+			gameover.visible = true
+			level.process_mode = Node.PROCESS_MODE_DISABLED
 	pass # Replace with function body.

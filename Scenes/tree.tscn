@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dntg2nus26njs"]
+
+[ext_resource type="Script" path="res://Scripts/polygon_2d.gd" id="1_ywqtw"]
+
+[node name="tree" type="Node2D"]
+position = Vector2(159, 131)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.447059, 0.254902, 0.0745098, 1)
+polygon = PackedVector2Array(-5, 4, 5, 4, 5, -75, -5, -75)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+position = Vector2(-1, -77)
+color = Color(0.121569, 0.141176, 0.0392157, 1)
+polygon = PackedVector2Array(-7, -73, -7, -86, 2, -95, 8, -87, 9, -77)
+script = ExtResource("1_ywqtw")
+radius = 25

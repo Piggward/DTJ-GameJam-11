@@ -265,4 +265,9 @@ scale = Vector2(1.61351, 1)
 color = Color(0, 0, 0, 1)
 polygon = PackedVector2Array(-8, 10, -1, 19, 4, 19, 12, 10, 12, 8, 4, 17, 0, 17, -8, 8)
 
+[node name="Shield" type="Polygon2D" parent="."]
+color = Color(0.235294, 0.623529, 0.611765, 0.498039)
+script = ExtResource("8_05qto")
+radius = 45
+
 [connection signal="area_entered" from="Torch/AttackArea" to="Torch/AttackArea" method="_on_area_entered"]

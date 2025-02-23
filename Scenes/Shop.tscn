@@ -1,9 +1,30 @@
-[gd_scene load_steps=2 format=3 uid="uid://bbo8qvmjj3ewq"]
+[gd_scene load_steps=4 format=3 uid="uid://bbo8qvmjj3ewq"]
 
 [ext_resource type="PackedScene" uid="uid://bu2lkw0kj4niq" path="res://Scenes/shop2.tscn" id="1_co4ho"]
+[ext_resource type="PackedScene" uid="uid://bgqd7ax0enp5e" path="res://Scenes/gold_area.tscn" id="2_p3kyg"]
+[ext_resource type="PackedScene" uid="uid://dntg2nus26njs" path="res://Scenes/tree.tscn" id="3_ruoi5"]
 
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Polygon2D2" type="Polygon2D" parent="CanvasLayer/Control"]
+position = Vector2(1058, 51)
+scale = Vector2(2.05067, 2.08965)
+color = Color(0.937255, 0.67451, 0.156863, 1)
+polygon = PackedVector2Array(0, -15, 10, 0, 0, 15, -10.1901, 0)
+
 [node name="Shop" parent="CanvasLayer" instance=ExtResource("1_co4ho")]
+
+[node name="Area2D" parent="." instance=ExtResource("2_p3kyg")]
+visible = false
+
+[node name="tree" parent="." instance=ExtResource("3_ruoi5")]
+
+[editable path="Area2D"]

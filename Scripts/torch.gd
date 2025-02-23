@@ -35,9 +35,11 @@ func change_level(value: int):
 	timer.stop()
 	timer.start()
 	
-	if current_level < 4 and not has_shown_hint:
-		level.show_hint("You are running low on light. Return, Reignite, Resume.")
-		has_shown_hint = true
+	if current_level < 5 and not has_shown_hint:
+		var player = get_tree().get_first_node_in_group("player")
+		if not player.in_safe_space:	
+			level.show_hint("You are running low on light. Return, Reignite, Resume.")
+			has_shown_hint = true
 
 func set_light():
 	self.texture.width = light_levels[current_level]

@@ -9,7 +9,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _update_label(value):
-	self.text = "Gold: " + str(value)
+	self.text = str(value)
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:

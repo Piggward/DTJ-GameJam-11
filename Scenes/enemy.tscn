@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://lirb1qcqidpl"]
+[gd_scene load_steps=14 format=3 uid="uid://lirb1qcqidpl"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_wqwso"]
 [ext_resource type="PackedScene" uid="uid://b3bq8wu0puy5w" path="res://Scenes/burning.tscn" id="2_67e56"]
 [ext_resource type="Texture2D" uid="uid://dxgddkrehhu4n" path="res://Art/fire.png" id="2_h2cee"]
+[ext_resource type="Script" path="res://Scripts/spider_leg.gd" id="2_pmtit"]
 [ext_resource type="AudioStream" uid="uid://yywr4hoyv1mn" path="res://SFX/Spider1.wav" id="4_sbqxi"]
 [ext_resource type="AudioStream" uid="uid://bwyujx02s4l8u" path="res://SFX/SpiderWalk.wav" id="5_bmqu8"]
 
@@ -104,45 +105,54 @@ shape = SubResource("RectangleShape2D_ir6aa")
 [node name="visuals" type="Node2D" parent="."]
 rotation = 2.27468
 
-[node name="Polygon2D" type="Polygon2D" parent="visuals"]
+[node name="Polygon2D8" type="Polygon2D" parent="visuals"]
 color = Color(0.188235, 0.0588235, 0.0392157, 1)
-polygon = PackedVector2Array(0, -18, -19, 0, -9.25107, 10.2905, -1, 19, 19, 2)
+polygon = PackedVector2Array(3.02162, -19.6181, -1.04805, -30.5925, -0.674896, -17.7917, -10.1961, -22.8263, -5.36406, -12.4991, -18.5817, -15.7073, -11.0458, -3.7403, -26.2051, -9.23547, -15.735, 1.55234, -30.3622, -1.77103, 1.55237, 15.735, 13.7774, 22.4094, 11.4627, 7.32159, 25.141, 4.89175, 17.6765, 0.734619, 11.6653, -12.5268)
 
 [node name="Polygon2D2" type="Polygon2D" parent="visuals"]
-position = Vector2(4.16779, -0.428375)
-rotation = -0.0648443
+position = Vector2(-18.9455, 46.8122)
+rotation = 2.95629
 color = Color(0.188235, 0.0588235, 0.0392157, 1)
-polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+polygon = PackedVector2Array(-6.61954, 11.3025, -11.0941, 27.6725, -25, 31, -22, 31, -7.37448, 30.1553)
+script = ExtResource("2_pmtit")
+bonus_rot = 90
 
 [node name="Polygon2D3" type="Polygon2D" parent="visuals"]
-position = Vector2(-2.83221, -5.42838)
-rotation = -0.0648443
+position = Vector2(-25.9455, 41.8122)
+rotation = 2.95629
 color = Color(0.188235, 0.0588235, 0.0392157, 1)
-polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+polygon = PackedVector2Array(-7, 12, -10.8552, 28.2938, -25, 31, -22, 31, -7.13553, 30.7766)
+script = ExtResource("2_pmtit")
+bonus_rot = 90
 
 [node name="Polygon2D4" type="Polygon2D" parent="visuals"]
-position = Vector2(-7.83221, -10.4284)
-rotation = -0.0648443
+position = Vector2(-30.9455, 36.8122)
+rotation = 2.95629
 color = Color(0.188235, 0.0588235, 0.0392157, 1)
-polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+polygon = PackedVector2Array(-7, 12, -10.0146, 28.9107, -25, 31, -22, 31, -6.29501, 31.3935)
+script = ExtResource("2_pmtit")
+bonus_rot = 90
 
 [node name="Polygon2D5" type="Polygon2D" parent="visuals"]
 position = Vector2(44.7482, -26.3288)
 rotation = 0.245227
 color = Color(0.188235, 0.0588235, 0.0392157, 1)
 polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+script = ExtResource("2_pmtit")
 
 [node name="Polygon2D6" type="Polygon2D" parent="visuals"]
 position = Vector2(37.7482, -31.3288)
 rotation = 0.245227
 color = Color(0.188235, 0.0588235, 0.0392157, 1)
-polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+polygon = PackedVector2Array(-7.00293, 12.2693, -26, 17, -25, 31, -22, 31, -23, 20)
+script = ExtResource("2_pmtit")
 
 [node name="Polygon2D7" type="Polygon2D" parent="visuals"]
 position = Vector2(32.7482, -36.3288)
 rotation = 0.245227
 color = Color(0.188235, 0.0588235, 0.0392157, 1)
 polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
+script = ExtResource("2_pmtit")
 
 [node name="BurnEffect" type="Node2D" parent="."]
 

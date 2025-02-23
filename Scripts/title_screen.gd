@@ -1,10 +1,10 @@
-extends Area2D
+extends Node2D
 
-@onready var shop = $"../CanvasLayer/Node2D"
-var player: Player
+@onready var button = $CanvasLayer/VBoxContainer/Button
+@onready var button_2 = $CanvasLayer/VBoxContainer/Button2
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	player = get_tree().get_first_node_in_group("player")
 	pass # Replace with function body.
 
 
@@ -13,11 +13,11 @@ func _process(delta):
 	pass
 
 
-func _on_body_exited(body):
+func _on_button_button_up():
+	get_tree().change_scene_to_file("res://Scenes/level_2.tscn")
 	pass # Replace with function body.
 
 
-func _on_area_entered(area):
-	if area is Enemy:
-		area.die()
+func _on_button_2_button_up():
+	get_tree().quit()
 	pass # Replace with function body.

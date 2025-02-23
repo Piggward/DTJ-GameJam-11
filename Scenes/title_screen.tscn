@@ -1,0 +1,142 @@
+[gd_scene load_steps=10 format=3 uid="uid://bwj655rchscdo"]
+
+[ext_resource type="Script" path="res://Scripts/title_screen.gd" id="1_cogl4"]
+[ext_resource type="PackedScene" uid="uid://cvxshxkyhi8hw" path="res://Scenes/player.tscn" id="1_fx8x3"]
+[ext_resource type="Texture2D" uid="uid://b2gcxuev6oht6" path="res://Art/WHITE.png" id="1_ypqyr"]
+[ext_resource type="PackedScene" uid="uid://bgqd7ax0enp5e" path="res://Scenes/gold_area.tscn" id="2_djeiw"]
+[ext_resource type="FontFile" uid="uid://b0onlgeo0hgnx" path="res://Fonts/Firestor.ttf" id="2_gnauj"]
+[ext_resource type="FontFile" uid="uid://bnbrhtk0frhsl" path="res://Fonts/Education.ttf" id="3_lw67e"]
+[ext_resource type="PackedScene" uid="uid://c0q87fc5ybw51" path="res://Scenes/saphire_area.tscn" id="3_ylr8x"]
+[ext_resource type="PackedScene" uid="uid://b54drotwy0x4i" path="res://Scenes/ruby_area.tscn" id="4_216mj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwj2a"]
+bg_color = Color(0.937255, 0.717647, 0.458824, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
+
+[node name="TitleScreen" type="Node2D"]
+script = ExtResource("1_cogl4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(577.5, 328)
+scale = Vector2(37.0938, 21.5)
+texture = ExtResource("1_ypqyr")
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_fx8x3")]
+process_mode = 4
+position = Vector2(554, 303)
+
+[node name="Camera2D" parent="CharacterBody2D" index="0"]
+zoom = Vector2(4, 4)
+
+[node name="Torch" parent="CharacterBody2D" index="1"]
+position = Vector2(25, -7)
+
+[node name="Burning" parent="CharacterBody2D/Torch/Polygon2D" index="0"]
+process_mode = 3
+
+[node name="BonfireIndicator" parent="CharacterBody2D" index="4"]
+visible = false
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.262
+anchor_top = 0.019
+anchor_right = 0.752
+anchor_bottom = 0.239
+offset_left = 0.175964
+offset_top = -0.312001
+offset_right = -0.304016
+offset_bottom = 0.127991
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bwj2a")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.607843, 0.101961, 0.0392157, 1)
+theme_override_fonts/font = ExtResource("2_gnauj")
+theme_override_font_sizes/font_size = 100
+text = "Ignition"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 25
+text = " for"
+
+[node name="Label3" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.223529, 0.341176, 0.109804, 1)
+theme_override_fonts/font = ExtResource("3_lw67e")
+theme_override_font_sizes/font_size = 100
+text = "Tuition
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = -1
+anchor_left = 0.207
+anchor_top = 0.758
+anchor_right = 0.77
+anchor_bottom = 0.918
+offset_left = -0.46402
+offset_top = -0.184021
+offset_right = -0.0400391
+offset_bottom = 0.135986
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+text = "Begin Adventure"
+
+[node name="Button2" type="Button" parent="CanvasLayer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+text = "Exit"
+
+[node name="Area2D" parent="." instance=ExtResource("2_djeiw")]
+position = Vector2(483, 296)
+
+[node name="Area2D2" parent="." instance=ExtResource("2_djeiw")]
+position = Vector2(468, 326)
+
+[node name="Area2D3" parent="." instance=ExtResource("2_djeiw")]
+position = Vector2(511, 291)
+
+[node name="Area2D4" parent="." instance=ExtResource("2_djeiw")]
+position = Vector2(614, 293)
+
+[node name="Area2D5" parent="." instance=ExtResource("3_ylr8x")]
+position = Vector2(457, 295)
+
+[node name="Area2D6" parent="." instance=ExtResource("3_ylr8x")]
+position = Vector2(640, 324)
+
+[node name="Area2D7" parent="." instance=ExtResource("4_216mj")]
+position = Vector2(646, 286)
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="."]
+blend_mode = 1
+
+[connection signal="button_up" from="CanvasLayer/VBoxContainer/Button" to="." method="_on_button_button_up"]
+[connection signal="button_up" from="CanvasLayer/VBoxContainer/Button2" to="." method="_on_button_2_button_up"]
+
+[editable path="CharacterBody2D"]

@@ -10,6 +10,7 @@ var player: Player
 var spawning = false
 @onready var level_2 = $".."
 @onready var label = $"../CanvasLayer/TutorialText/Label"
+var first_time = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,7 +19,10 @@ func _ready():
 	
 func set_timer():
 	var randiff = randf_range(0, diff)
-	await get_tree().create_timer(max_time_until_spawn - randiff).timeout
+	if first_time:
+		await get_tree().create_timer(6).timeout
+	else:
+		await get_tree().create_timer(max_time_until_spawn - randiff).timeout
 	if spawning:
 		spawn_spider()
 
@@ -27,7 +31,11 @@ func spawn_spider():
 	add_child(enemy)
 	var rp = randi_range(0, 359)
 	enemy.global_position = player.global_position + Vector2(0, -spider_distance).rotated(deg_to_rad(rp))
-	enemy.speed = 0.8
+	if first_time:
+		enemy.speed = 0.8
+		first_time = false
+	else:
+		enemy.speed = 1.2
 	if level_2.showing_tutorial:
 		label.text = "Use left mouse button to defend against creatures."
 		await enemy.died
