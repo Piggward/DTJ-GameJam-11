@@ -1,8 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://lirb1qcqidpl"]
+[gd_scene load_steps=13 format=3 uid="uid://lirb1qcqidpl"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_wqwso"]
 [ext_resource type="PackedScene" uid="uid://b3bq8wu0puy5w" path="res://Scenes/burning.tscn" id="2_67e56"]
 [ext_resource type="Texture2D" uid="uid://dxgddkrehhu4n" path="res://Art/fire.png" id="2_h2cee"]
+[ext_resource type="AudioStream" uid="uid://yywr4hoyv1mn" path="res://SFX/Spider1.wav" id="4_sbqxi"]
+[ext_resource type="AudioStream" uid="uid://bwyujx02s4l8u" path="res://SFX/SpiderWalk.wav" id="5_bmqu8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ir6aa"]
 size = Vector2(40, 37)
@@ -160,5 +162,12 @@ explosiveness = 1.0
 libraries = {
 "": SubResource("AnimationLibrary_wpe38")
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_sbqxi")
+
+[node name="WalkSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_bmqu8")
+autoplay = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

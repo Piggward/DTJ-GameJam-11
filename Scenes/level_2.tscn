@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d2dfuycloduxl"]
+[gd_scene load_steps=23 format=3 uid="uid://d2dfuycloduxl"]
 
 [ext_resource type="Script" path="res://Scripts/level_2.gd" id="1_d6oyo"]
 [ext_resource type="Texture2D" uid="uid://b2gcxuev6oht6" path="res://Art/WHITE.png" id="2_4wo60"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bgqd7ax0enp5e" path="res://Scenes/gold_area.tscn" id="9_78rnm"]
 [ext_resource type="PackedScene" uid="uid://bu2lkw0kj4niq" path="res://Scenes/shop2.tscn" id="10_dbdte"]
 [ext_resource type="Script" path="res://Scenes/gold_area_check.gd" id="11_6i4rp"]
+[ext_resource type="AudioStream" uid="uid://b0ru63ideimji" path="res://SFX/title gj ignite.mp3" id="13_c60mg"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0spwv"]
 shader = ExtResource("3_6jukw")
@@ -28,6 +29,9 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gm0mt"]
+bg_color = Color(0.937255, 0.717647, 0.458824, 1)
 
 [sub_resource type="GDScript" id="GDScript_8uaxt"]
 script/source = "extends Area2D
@@ -60,10 +64,10 @@ func _on_body_exited(body):
 radius = 1600.04
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3woet"]
-radius = 3218.2
+radius = 3811.83
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v2vnx"]
-radius = 4825.05
+radius = 10048.2
 
 [node name="Level2" type="Node2D" groups=["level"]]
 script = ExtResource("1_d6oyo")
@@ -76,13 +80,13 @@ position = Vector2(571, 85)
 [node name="Sprite2D3" type="Sprite2D" parent="Background"]
 modulate = Color(0.164706, 0.113725, 0.0509804, 1)
 material = SubResource("ShaderMaterial_0spwv")
-scale = Vector2(300, 300)
+scale = Vector2(624.146, 624.146)
 texture = ExtResource("2_4wo60")
 
 [node name="Sprite2D2" type="Sprite2D" parent="Background"]
 modulate = Color(0.647059, 0.54902, 0.152941, 1)
 material = SubResource("ShaderMaterial_0spwv")
-scale = Vector2(200, 200)
+scale = Vector2(235.967, 235.967)
 texture = ExtResource("2_4wo60")
 
 [node name="Sprite2D" type="Sprite2D" parent="Background"]
@@ -94,7 +98,7 @@ texture = ExtResource("2_4wo60")
 [node name="SpiderSpawner" type="Area2D" parent="."]
 position = Vector2(521, 251)
 script = ExtResource("3_f5vwy")
-max_time_until_spawn = 7.0
+max_time_until_spawn = 6.0
 diff = 2.0
 spider_distance = 450.0
 
@@ -104,9 +108,6 @@ shape = SubResource("CircleShape2D_a3ki2")
 [node name="CharacterBody2D" parent="." groups=["player"] instance=ExtResource("2_isn68")]
 position = Vector2(873, 151)
 
-[node name="Torch" parent="CharacterBody2D" index="1"]
-position = Vector2(25, -7)
-
 [node name="PointLight2D" parent="CharacterBody2D/Torch" index="1"]
 wait_time = 5.0
 
@@ -115,9 +116,6 @@ position = Vector2(571, 84)
 lit = true
 
 [node name="Lighting" parent="." instance=ExtResource("5_3i6lh")]
-
-[node name="DirectionalLight2D" parent="Lighting" index="1"]
-visible = true
 
 [node name="SafeArea" type="Area2D" parent="."]
 visible = false
@@ -196,11 +194,30 @@ text = "Ignite your torch by pressing shift by the bonfire"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="WinContainer" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gm0mt")
+
+[node name="Label" type="Label" parent="CanvasLayer/WinContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.164706, 0.113725, 0.0509804, 1)
+theme_override_font_sizes/font_size = 40
+text = "You won!! Your daughter will be so proud of you!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Gold" parent="." instance=ExtResource("9_78rnm")]
 position = Vector2(-111, 540)
 
 [node name="GoldArea" type="Area2D" parent="."]
-visible = false
 position = Vector2(572, 87)
 collision_mask = 3
 script = SubResource("GDScript_8uaxt")
@@ -210,7 +227,6 @@ unique_name_in_owner = true
 shape = SubResource("CircleShape2D_bsos5")
 
 [node name="SaphireArea" type="Area2D" parent="."]
-visible = false
 position = Vector2(572, 87)
 collision_mask = 3
 script = ExtResource("11_6i4rp")
@@ -220,7 +236,6 @@ unique_name_in_owner = true
 shape = SubResource("CircleShape2D_3woet")
 
 [node name="RubyArea" type="Area2D" parent="."]
-visible = false
 position = Vector2(572, 87)
 collision_mask = 3
 script = ExtResource("11_6i4rp")
@@ -228,6 +243,11 @@ script = ExtResource("11_6i4rp")
 [node name="RubyCollision" type="CollisionShape2D" parent="RubyArea"]
 unique_name_in_owner = true
 shape = SubResource("CircleShape2D_v2vnx")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+process_mode = 3
+stream = ExtResource("13_c60mg")
+autoplay = true
 
 [connection signal="area_entered" from="SafeArea" to="SafeArea" method="_on_area_entered"]
 [connection signal="body_entered" from="SafeArea" to="." method="_on_safe_area_body_entered"]

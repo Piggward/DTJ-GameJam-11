@@ -19,9 +19,12 @@ var showing_tutorial = true
 var current_upgrade_cost = 10
 @onready var tutorial_text = $CanvasLayer/TutorialText/Label
 @onready var tutorial_text_container = $CanvasLayer/TutorialText
+@onready var audio_stream_player_2d = $AudioStreamPlayer2D
+@onready var win_container = $CanvasLayer/WinContainer
 
 var max_distance = 0.0
 var current_distance_goal = 0.0
+@onready var spider_spawner = $SpiderSpawner
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -31,11 +34,16 @@ func _ready():
 	update_shop()
 	pass # Replace with function body.
 	
+func win_game():
+	if player.gold >= 500:
+		win_container.visible = true
+		self.process_mode = Node.PROCESS_MODE_DISABLED
+	
 func purchase_upgrade():
 	if player.gold >= current_upgrade_cost:
 		player.gold -= current_upgrade_cost
 		gold_label = "Gold: " + str(player.gold)
-		current_upgrade_cost += current_upgrade_cost + current_upgrade_cost / 2
+		current_upgrade_cost += 10
 		update_shop()
 		return true
 	else:
@@ -69,6 +77,7 @@ func spawn_gold():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	audio_stream_player_2d.global_position = player.global_position
 	if player.distance_travelled >= current_distance_goal:
 		player.reset_distance()
 		set_distance_goal()
@@ -90,7 +99,7 @@ func _on_safe_area_body_entered(body):
 		body.indicator(false)
 		if not showing_tutorial:
 			tutorial_text_container.visible = true
-			tutorial_text = "Ignite your torch by pressing shift by the bonfire"
+			tutorial_text.text = "Ignite your torch by pressing shift by the bonfire"
 	pass # Replace with function body.
 
 

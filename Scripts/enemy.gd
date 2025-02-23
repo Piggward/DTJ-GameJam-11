@@ -11,6 +11,12 @@ var dead = false
 var level: Node2D
 var tutlabel: PanelContainer
 signal died
+@onready var audio_stream_player_2d = $AudioStreamPlayer2D
+const SPIDER_1 = preload("res://SFX/Spider1.wav")
+const SPIDER_2 = preload("res://SFX/Spider2.wav")
+const SPIDER_DIE_1 = preload("res://SFX/SpiderDie1.wav")
+const SPIDER_DIE_2 = preload("res://SFX/SpiderDie2.wav")
+@onready var walk_sound = $WalkSound
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -18,6 +24,15 @@ func _ready() -> void:
 	burn_effect.visible = false
 	level = get_tree().get_first_node_in_group("level")
 	tutlabel = get_tree().get_first_node_in_group("tutlabel")
+	var random = randi_range(0, 1)
+	if random == 0:
+		audio_stream_player_2d.stream = SPIDER_1
+	else:
+		audio_stream_player_2d.stream = SPIDER_2
+	var rpi = randf_range(0.9, 1.1)
+	audio_stream_player_2d.set_pitch_scale(rpi)
+	walk_sound.set_pitch_scale(rpi)
+	audio_stream_player_2d.play()
 	pass # Replace with function body.
 
 #func enter_sight():
@@ -27,6 +42,17 @@ func _ready() -> void:
 	#visuals.visible = false
 	
 func die():
+	if dead:
+		return
+	var random = randi_range(0, 1)
+	if random == 0:
+		audio_stream_player_2d.stream = SPIDER_DIE_1
+	else:
+		audio_stream_player_2d.stream = SPIDER_DIE_2
+	var rpi = randf_range(0.9, 1.1)
+	audio_stream_player_2d.set_pitch_scale(rpi)
+	audio_stream_player_2d.play()
+	
 	died.emit()
 	if level.showing_tutorial:
 		tutlabel.visible = false

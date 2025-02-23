@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b0ru63ideimji"
+path="res://.godot/imported/title gj ignite.mp3-9631703089bc8377b6d590552a6e45d0.mp3str"
+
+[deps]
+
+source_file="res://SFX/title gj ignite.mp3"
+dest_files=["res://.godot/imported/title gj ignite.mp3-9631703089bc8377b6d590552a6e45d0.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

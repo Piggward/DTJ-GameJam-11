@@ -19,6 +19,8 @@ var in_safe_space = true
 @onready var bonfire_indicator = $BonfireIndicator
 var bonfire = Node2D
 @onready var tutorial_text = $"../CanvasLayer/TutorialText/Label"
+@onready var attack_sound = $AttackSound
+@onready var ignite_sound = $IgniteSound
 
 func indicator(value):
 	bonfire_indicator.visible = value
@@ -49,6 +51,10 @@ func _physics_process(delta: float) -> void:
 			point_light_2d.wait_time *= 1.1
 			timer.set_wait_time(point_light_2d.wait_time)
 			timer.start()
+			
+	if Input.is_action_just_pressed("win") and in_safe_space:
+		if level_2.win_game():
+			pass
 
 	#if Input.is_action_just_released("ignite"):
 		#igniting = false
@@ -101,6 +107,7 @@ func start_ignite():
 			return
 	
 func ignite(value: int):
+	ignite_sound.play()
 	point_light_2d.change_level(value)
 	if (level_2.showing_tutorial):
 		tutorial_text.text = "Come back often to reignite your torch. It's dangerous to venture in the dark..."
@@ -109,5 +116,6 @@ func ignite(value: int):
 func attack():
 	attacking = true
 	animation_player.play("torch_attack")
-	await get_tree().create_timer(1).timeout
+	attack_sound.play()
+	await animation_player.animation_finished
 	attacking = false
