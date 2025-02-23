@@ -4,14 +4,14 @@ extends CharacterBody2D
 
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
-const IGNITE_TIME = 1
 @onready var animation_player: AnimationPlayer = $Torch/AnimationPlayer
 var attacking = false
 const TURN_SPEED = 10
 var igniting = false
-var ignite_time: float
 var bonfire_area: Bonfire
 @onready var point_light_2d: Torch = $Torch/PointLight2D
+var tinderboxes = 0
+signal tinderbox_pickup(tinderboxes: int)
 
 func _physics_process(delta: float) -> void:
 	## Add the gravity.
@@ -24,11 +24,6 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("ignite") and not igniting:
 		start_ignite()
-		
-	elif Input.is_action_pressed("ignite") and igniting:
-		ignite_time += delta
-		if ignite_time >= IGNITE_TIME:
-			ignite(3)
 			
 	if Input.is_action_just_released("ignite"):
 		igniting = false
@@ -58,19 +53,31 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 	
+func pickup_tinderbox():
+	tinderboxes += 1
+	tinderbox_pickup.emit(tinderboxes)
+	
+func use_tinderbox():
+	tinderboxes -= 1
+	tinderbox_pickup.emit(tinderboxes)
+	await get_tree().create_timer(1).timeout
+	ignite(3)
+	igniting = false
+	
 func start_ignite():
+	igniting = true
 	if bonfire_area:
 		if bonfire_area.lit:
 			ignite(100)
 			return 
 		else:
 			bonfire_area.light_bonfire()
-	ignite_time = 0
-	igniting = true
+			return
+	elif tinderboxes > 0:
+		use_tinderbox()
 	
 func ignite(value: int):
 	point_light_2d.change_level(value)
-	igniting = false
 	
 func attack():
 	attacking = true
