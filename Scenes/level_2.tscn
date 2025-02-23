@@ -90,7 +90,7 @@ scale = Vector2(235.967, 235.967)
 texture = ExtResource("2_4wo60")
 
 [node name="Sprite2D" type="Sprite2D" parent="Background"]
-modulate = Color(0.447059, 0.254902, 0.0745098, 1)
+modulate = Color(0.223529, 0.341176, 0.109804, 1)
 material = SubResource("ShaderMaterial_0spwv")
 scale = Vector2(100, 100)
 texture = ExtResource("2_4wo60")
@@ -108,6 +108,9 @@ shape = SubResource("CircleShape2D_a3ki2")
 [node name="CharacterBody2D" parent="." groups=["player"] instance=ExtResource("2_isn68")]
 position = Vector2(873, 151)
 
+[node name="Torch" parent="CharacterBody2D" index="1"]
+position = Vector2(25, -7)
+
 [node name="PointLight2D" parent="CharacterBody2D/Torch" index="1"]
 wait_time = 5.0
 
@@ -116,6 +119,9 @@ position = Vector2(571, 84)
 lit = true
 
 [node name="Lighting" parent="." instance=ExtResource("5_3i6lh")]
+
+[node name="DirectionalLight2D" parent="Lighting" index="1"]
+visible = true
 
 [node name="SafeArea" type="Area2D" parent="."]
 visible = false
@@ -218,6 +224,7 @@ vertical_alignment = 1
 position = Vector2(-111, 540)
 
 [node name="GoldArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(572, 87)
 collision_mask = 3
 script = SubResource("GDScript_8uaxt")
@@ -227,6 +234,7 @@ unique_name_in_owner = true
 shape = SubResource("CircleShape2D_bsos5")
 
 [node name="SaphireArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(572, 87)
 collision_mask = 3
 script = ExtResource("11_6i4rp")
@@ -236,6 +244,7 @@ unique_name_in_owner = true
 shape = SubResource("CircleShape2D_3woet")
 
 [node name="RubyArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(572, 87)
 collision_mask = 3
 script = ExtResource("11_6i4rp")

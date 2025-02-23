@@ -7,6 +7,8 @@ extends PointLight2D
 @export var current_level: int
 @onready var timer: Timer = $Timer
 @export var wait_time: float
+var level: Node2D
+var has_shown_hint = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -15,6 +17,7 @@ func _ready() -> void:
 	timer.timeout.connect(timer_timeout)
 	timer.start()
 	flicker()
+	level = get_tree().get_first_node_in_group("level")
 	pass # Replace with function body.
 	
 func timer_timeout():
@@ -31,6 +34,10 @@ func change_level(value: int):
 	set_light()
 	timer.stop()
 	timer.start()
+	
+	if current_level < 4 and not has_shown_hint:
+		level.show_hint("You are running low on light. Return, Reignite, Resume.")
+		has_shown_hint = true
 
 func set_light():
 	self.texture.width = light_levels[current_level]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvxshxkyhi8hw"]
+[gd_scene load_steps=17 format=3 uid="uid://cvxshxkyhi8hw"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_eim3k"]
 [ext_resource type="Script" path="res://Scripts/torch.gd" id="2_ke26v"]
@@ -7,6 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://cn4hr0bil5m4w" path="res://Scenes/fire.tscn" id="5_75gn3"]
 [ext_resource type="AudioStream" uid="uid://c1jf3aocrjg3t" path="res://SFX/Attack.wav" id="6_2m7vx"]
 [ext_resource type="AudioStream" uid="uid://dahkfhtppw25t" path="res://SFX/Ignite.wav" id="7_o736o"]
+[ext_resource type="Script" path="res://Scripts/polygon_2d.gd" id="8_05qto"]
+[ext_resource type="PackedScene" uid="uid://d3gd32e0xvjdn" path="res://Scenes/burning_torch.tscn" id="9_4j0un"]
 
 [sub_resource type="Animation" id="Animation_nnyfx"]
 length = 0.001
@@ -45,6 +47,18 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("CharacterBody2D/Torch/Polygon2D/Burning:local_coords")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_7i1m7"]
@@ -106,6 +120,18 @@ tracks/3/keys = {
 "method": &"disable"
 }]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("CharacterBody2D/Torch/Polygon2D/Burning:local_coords")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p03dh"]
 _data = {
@@ -133,7 +159,6 @@ size = Vector2(36, 35)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 z_index = 5
-position = Vector2(927, 352)
 collision_layer = 2
 collision_mask = 7
 script = ExtResource("1_eim3k")
@@ -163,9 +188,9 @@ wait_time = 5.0
 color = Color(0.588235, 0.309804, 0, 1)
 polygon = PackedVector2Array(-2, 12, 4, 12, 4, -10, -2, -10)
 
-[node name="Polygon2D2" type="Polygon2D" parent="Torch"]
-color = Color(1, 1, 0, 1)
-polygon = PackedVector2Array(-2, -10, 1, -17, 4, -10)
+[node name="Burning" parent="Torch/Polygon2D" instance=ExtResource("9_4j0un")]
+position = Vector2(1, -10)
+local_coords = true
 
 [node name="AttackArea" type="Area2D" parent="Torch"]
 collision_mask = 4
@@ -181,6 +206,7 @@ position = Vector2(2, 0.5)
 shape = SubResource("RectangleShape2D_qgppn")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+visible = false
 color = Color(1, 0, 1, 1)
 polygon = PackedVector2Array(-15, -16, 19, -16, 19, 18, -16, 18)
 
@@ -200,5 +226,43 @@ stream = ExtResource("6_2m7vx")
 
 [node name="IgniteSound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_o736o")
+
+[node name="CharacterVisuals" type="Node2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="CharacterVisuals"]
+color = Color(0.647059, 0.384314, 0.262745, 1)
+polygon = PackedVector2Array(-17, -18, 21, -18, 21, 19, -17, 19)
+script = ExtResource("8_05qto")
+radius = 25
+
+[node name="Polygon2D4" type="Polygon2D" parent="CharacterVisuals"]
+position = Vector2(0, -30)
+color = Color(0.937255, 0.227451, 0.0470588, 1)
+polygon = PackedVector2Array(-5, -5, 6, -6, 6, 6, -5, 6)
+script = ExtResource("8_05qto")
+radius = 10
+
+[node name="Polygon2D2" type="Polygon2D" parent="CharacterVisuals"]
+position = Vector2(0, -13)
+color = Color(0.937255, 0.227451, 0.0470588, 1)
+polygon = PackedVector2Array(-5, -5, 6, -6, 6, 6, -5, 6)
+script = ExtResource("8_05qto")
+radius = 15
+
+[node name="Polygon2D5" type="Polygon2D" parent="CharacterVisuals"]
+position = Vector2(0, -1)
+scale = Vector2(1.67174, 1.06519)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-8.44922, 3.75521, 12, 4, 12, 29, -8.44922, 29.1029)
+
+[node name="Polygon2D3" type="Polygon2D" parent="CharacterVisuals"]
+scale = Vector2(1.60643, 1)
+color = Color(0.447059, 0.254902, 0.0745098, 1)
+polygon = PackedVector2Array(-8, 4, 12, 4, 12, 29, -8, 29)
+
+[node name="Polygon2D6" type="Polygon2D" parent="CharacterVisuals"]
+scale = Vector2(1.61351, 1)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(-8, 10, -1, 19, 4, 19, 12, 10, 12, 8, 4, 17, 0, 17, -8, 8)
 
 [connection signal="area_entered" from="Torch/AttackArea" to="Torch/AttackArea" method="_on_area_entered"]

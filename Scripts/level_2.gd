@@ -42,7 +42,7 @@ func win_game():
 func purchase_upgrade():
 	if player.gold >= current_upgrade_cost:
 		player.gold -= current_upgrade_cost
-		gold_label = "Gold: " + str(player.gold)
+		gold_label.text = "Gold: " + str(player.gold)
 		current_upgrade_cost += 10
 		update_shop()
 		return true
@@ -102,6 +102,12 @@ func _on_safe_area_body_entered(body):
 			tutorial_text.text = "Ignite your torch by pressing shift by the bonfire"
 	pass # Replace with function body.
 
+func show_hint(value: String):
+	tutorial_text_container.visible = true
+	tutorial_text.text = value
+	await get_tree().create_timer(4).timeout
+	tutorial_text_container.visible = false
+	
 
 func _on_safe_area_body_exited(body):
 	if body is Player:

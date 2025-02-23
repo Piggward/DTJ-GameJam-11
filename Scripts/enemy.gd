@@ -44,6 +44,7 @@ func _ready() -> void:
 func die():
 	if dead:
 		return
+	walk_sound.stop()
 	var random = randi_range(0, 1)
 	if random == 0:
 		audio_stream_player_2d.stream = SPIDER_DIE_1
