@@ -1,6 +1,7 @@
-[gd_scene load_steps=17 format=3 uid="uid://lirb1qcqidpl"]
+[gd_scene load_steps=11 format=3 uid="uid://lirb1qcqidpl"]
 
 [ext_resource type="Script" path="res://Scripts/enemy.gd" id="1_wqwso"]
+[ext_resource type="PackedScene" uid="uid://b3bq8wu0puy5w" path="res://Scenes/burning.tscn" id="2_67e56"]
 [ext_resource type="Texture2D" uid="uid://dxgddkrehhu4n" path="res://Art/fire.png" id="2_h2cee"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ir6aa"]
@@ -18,38 +19,6 @@ fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.8, 0.8)
 
-[sub_resource type="Curve" id="Curve_ocwtp"]
-_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.346667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.604396), 0.0, 0.0, 0, 0]
-point_count = 3
-
-[sub_resource type="CurveTexture" id="CurveTexture_gqv43"]
-curve = SubResource("Curve_ocwtp")
-
-[sub_resource type="Gradient" id="Gradient_fkgk3"]
-offsets = PackedFloat32Array(0, 0.221311, 1)
-colors = PackedColorArray(0.937255, 0.67451, 0.156863, 1, 0.937255, 0.227451, 0.0470588, 1, 0.607843, 0.101961, 0.0392157, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_cyo8j"]
-gradient = SubResource("Gradient_fkgk3")
-
-[sub_resource type="Curve" id="Curve_j4q8q"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.274725), 0.0, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_odf5h"]
-curve = SubResource("Curve_j4q8q")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vv6b4"]
-particle_flag_disable_z = true
-emission_shape = 3
-emission_box_extents = Vector3(5, 5, 1)
-gravity = Vector3(0, -75, 0)
-scale_min = 0.5
-scale_max = 0.5
-scale_curve = SubResource("CurveTexture_odf5h")
-color_ramp = SubResource("GradientTexture1D_cyo8j")
-alpha_curve = SubResource("CurveTexture_gqv43")
-
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_lw5o4"]
 particle_flag_disable_z = true
 radial_velocity_min = -2.23517e-05
@@ -58,33 +27,6 @@ gravity = Vector3(0, -25, 0)
 scale_min = 0.2
 scale_max = 0.2
 color = Color(0.937255, 0.227451, 0.0470588, 1)
-
-[sub_resource type="Animation" id="Animation_v3hnv"]
-resource_name = "die"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BurnEffect/Burning:emitting")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.533333),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("visuals:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(1, 1)]
-}
 
 [sub_resource type="Animation" id="Animation_f1arg"]
 length = 0.001
@@ -99,6 +41,33 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("visuals:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_v3hnv"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BurnEffect/Burning:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.533333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -178,13 +147,7 @@ polygon = PackedVector2Array(-7, 12, -26, 17, -25, 31, -22, 31, -23, 20)
 [node name="PointLight2D" type="PointLight2D" parent="BurnEffect"]
 texture = SubResource("GradientTexture2D_0ykfk")
 
-[node name="Burning" type="GPUParticles2D" parent="BurnEffect"]
-emitting = false
-amount = 100
-process_material = SubResource("ParticleProcessMaterial_vv6b4")
-texture = ExtResource("2_h2cee")
-speed_scale = 0.5
-explosiveness = 0.1
+[node name="Burning" parent="BurnEffect" instance=ExtResource("2_67e56")]
 
 [node name="Explosion" type="GPUParticles2D" parent="BurnEffect"]
 emitting = false
@@ -197,3 +160,5 @@ explosiveness = 1.0
 libraries = {
 "": SubResource("AnimationLibrary_wpe38")
 }
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

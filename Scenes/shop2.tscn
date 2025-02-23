@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu2lkw0kj4niq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7sgc"]
+bg_color = Color(0.937255, 0.717647, 0.458824, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qfrf6"]
+bg_color = Color(0.223529, 0.341176, 0.109804, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="Shop" type="HBoxContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_vertical = 8
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(125, 175)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7sgc")
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer2"]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_qfrf6")
+
+[node name="Label" type="Label" parent="PanelContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.937255, 0.67451, 0.156863, 1)
+text = "10 GOLD 
+(Press B to buy)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_bottom = 19
+
+[node name="Label" type="Label" parent="PanelContainer2/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0.164706, 0.113725, 0.0509804, 1)
+text = "Increase torchlight duration by 10%"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2

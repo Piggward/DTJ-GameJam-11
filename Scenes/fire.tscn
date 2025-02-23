@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cn4hr0bil5m4w"]
+
+[node name="Fire" type="Node2D"]
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+scale = Vector2(1.67454, 1.96319)
+color = Color(0.6, 0.239216, 0.254902, 1)
+polygon = PackedVector2Array(0.58197, 2.40067, -15.1318, -11.203, 1.164, -40.8109, 16.2958, -6.4017)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+color = Color(0.803922, 0.407843, 0.239216, 1)
+polygon = PackedVector2Array(0.58197, 2.40067, -15.1318, -11.203, 1.164, -40.8109, 16.2958, -6.4017)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(1.74597, 0)
+color = Color(0.470588, 0.541176, 0.529412, 1)
+polygon = PackedVector2Array(8.14789, -4.80127, -1.164, 2.40067, -8.14789, -7.2019, 1.164, -20.0053)

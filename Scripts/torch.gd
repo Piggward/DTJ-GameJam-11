@@ -6,9 +6,11 @@ extends PointLight2D
 @export var light_levels: Array[int]
 @export var current_level: int
 @onready var timer: Timer = $Timer
+@export var wait_time: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	timer.set_wait_time(wait_time)
 	set_light()
 	timer.timeout.connect(timer_timeout)
 	timer.start()

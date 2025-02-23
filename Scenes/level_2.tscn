@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://d2dfuycloduxl"]
+[gd_scene load_steps=21 format=3 uid="uid://d2dfuycloduxl"]
 
 [ext_resource type="Script" path="res://Scripts/level_2.gd" id="1_d6oyo"]
 [ext_resource type="Texture2D" uid="uid://b2gcxuev6oht6" path="res://Art/WHITE.png" id="2_4wo60"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://Scripts/safe_area.gd" id="7_njkfc"]
 [ext_resource type="Script" path="res://Scripts/tinder_label.gd" id="8_1pv6f"]
 [ext_resource type="PackedScene" uid="uid://bgqd7ax0enp5e" path="res://Scenes/gold_area.tscn" id="9_78rnm"]
+[ext_resource type="PackedScene" uid="uid://bu2lkw0kj4niq" path="res://Scenes/shop2.tscn" id="10_dbdte"]
 [ext_resource type="Script" path="res://Scenes/gold_area_check.gd" id="11_6i4rp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0spwv"]
@@ -21,12 +22,53 @@ radius = 500.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3huvu"]
 radius = 586.003
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_plipn"]
-radius = 4840.34
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_voykt"]
+bg_color = Color(0.937255, 0.717647, 0.458824, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
-[node name="Level2" type="Node2D"]
+[sub_resource type="GDScript" id="GDScript_8uaxt"]
+script/source = "extends Area2D
+
+var has_player: bool
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	pass
+
+
+
+func _on_body_entered(body):
+	if body is Player:
+		has_player = true
+	pass # Replace with function body.
+
+
+func _on_body_exited(body):
+	if body is Player:
+		has_player = false
+	pass # Replace with function body.
+"
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bsos5"]
+radius = 1600.04
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3woet"]
+radius = 3218.2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v2vnx"]
+radius = 4825.05
+
+[node name="Level2" type="Node2D" groups=["level"]]
 script = ExtResource("1_d6oyo")
 gold_spawn_max_distance = 50000.0
+minimum_gold_spawn = 20000.0
 
 [node name="Background" type="Node2D" parent="."]
 position = Vector2(571, 85)
@@ -52,29 +94,33 @@ texture = ExtResource("2_4wo60")
 [node name="SpiderSpawner" type="Area2D" parent="."]
 position = Vector2(521, 251)
 script = ExtResource("3_f5vwy")
-max_time_until_spawn = 5.0
-diff = 3.0
+max_time_until_spawn = 7.0
+diff = 2.0
 spider_distance = 450.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpiderSpawner"]
 shape = SubResource("CircleShape2D_a3ki2")
 
 [node name="CharacterBody2D" parent="." groups=["player"] instance=ExtResource("2_isn68")]
-position = Vector2(421, 356)
+position = Vector2(873, 151)
 
 [node name="Torch" parent="CharacterBody2D" index="1"]
 position = Vector2(25, -7)
 
 [node name="PointLight2D" parent="CharacterBody2D/Torch" index="1"]
-current_level = 8
+wait_time = 5.0
 
-[node name="Bonfire" parent="." instance=ExtResource("4_v2wye")]
+[node name="Bonfire" parent="." groups=["bonfire"] instance=ExtResource("4_v2wye")]
 position = Vector2(571, 84)
 lit = true
 
 [node name="Lighting" parent="." instance=ExtResource("5_3i6lh")]
 
+[node name="DirectionalLight2D" parent="Lighting" index="1"]
+visible = true
+
 [node name="SafeArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(571, 86)
 collision_mask = 7
 script = ExtResource("7_njkfc")
@@ -83,33 +129,105 @@ script = ExtResource("7_njkfc")
 shape = SubResource("CircleShape2D_3huvu")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+process_mode = 3
 
 [node name="Label" type="Label" parent="CanvasLayer"]
 offset_right = 40.0
 offset_bottom = 23.0
+text = "Gold: 0"
 script = ExtResource("8_1pv6f")
+
+[node name="GameOverContainer" type="MarginContainer" parent="CanvasLayer" groups=["gameover"]]
+visible = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -52.0
+offset_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/GameOverContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/GameOverContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/GameOverContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "You died! 
+Dont venture on low light..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/GameOverContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Play Again"
+
+[node name="Button2" type="Button" parent="CanvasLayer/GameOverContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Exit
+"
+
+[node name="Shop" parent="CanvasLayer" instance=ExtResource("10_dbdte")]
+
+[node name="TutorialText" type="PanelContainer" parent="CanvasLayer" groups=["tutlabel"]]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -420.0
+offset_top = -285.0
+offset_right = 397.0
+offset_bottom = -243.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_voykt")
+
+[node name="Label" type="Label" parent="CanvasLayer/TutorialText" groups=["tutlabel"]]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.164706, 0.113725, 0.0509804, 1)
+theme_override_font_sizes/font_size = 30
+text = "Ignite your torch by pressing shift by the bonfire"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Gold" parent="." instance=ExtResource("9_78rnm")]
 position = Vector2(-111, 540)
 
 [node name="GoldArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(572, 87)
-script = ExtResource("11_6i4rp")
+collision_mask = 3
+script = SubResource("GDScript_8uaxt")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="GoldArea"]
-shape = SubResource("CircleShape2D_plipn")
+[node name="GoldCollision" type="CollisionShape2D" parent="GoldArea"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_bsos5")
 
 [node name="SaphireArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(572, 87)
+collision_mask = 3
+script = ExtResource("11_6i4rp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SaphireArea"]
-shape = SubResource("CircleShape2D_plipn")
+[node name="SaphireCollision" type="CollisionShape2D" parent="SaphireArea"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_3woet")
 
 [node name="RubyArea" type="Area2D" parent="."]
+visible = false
 position = Vector2(572, 87)
+collision_mask = 3
+script = ExtResource("11_6i4rp")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RubyArea"]
-shape = SubResource("CircleShape2D_plipn")
+[node name="RubyCollision" type="CollisionShape2D" parent="RubyArea"]
+unique_name_in_owner = true
+shape = SubResource("CircleShape2D_v2vnx")
 
 [connection signal="area_entered" from="SafeArea" to="SafeArea" method="_on_area_entered"]
 [connection signal="body_entered" from="SafeArea" to="." method="_on_safe_area_body_entered"]
@@ -118,6 +236,12 @@ shape = SubResource("CircleShape2D_plipn")
 [connection signal="body_exited" from="SafeArea" to="SpiderSpawner" method="_on_safe_area_body_exited"]
 [connection signal="body_entered" from="GoldArea" to="GoldArea" method="_on_body_entered"]
 [connection signal="body_exited" from="GoldArea" to="GoldArea" method="_on_body_exited"]
+[connection signal="body_entered" from="SaphireArea" to="SaphireArea" method="_on_body_entered"]
+[connection signal="body_exited" from="SaphireArea" to="SaphireArea" method="_on_body_exited"]
+[connection signal="body_entered" from="RubyArea" to="RubyArea" method="_on_body_entered"]
+[connection signal="body_exited" from="RubyArea" to="RubyArea" method="_on_body_exited"]
 
 [editable path="CharacterBody2D"]
+[editable path="Bonfire"]
 [editable path="Lighting"]
+[editable path="CanvasLayer/Shop"]

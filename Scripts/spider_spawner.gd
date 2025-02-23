@@ -8,6 +8,8 @@ const ENEMY = preload("res://Scenes/enemy.tscn")
 @export var spider_distance: float
 var player: Player
 var spawning = false
+@onready var level_2 = $".."
+@onready var label = $"../CanvasLayer/TutorialText/Label"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -25,7 +27,11 @@ func spawn_spider():
 	add_child(enemy)
 	var rp = randi_range(0, 359)
 	enemy.global_position = player.global_position + Vector2(0, -spider_distance).rotated(deg_to_rad(rp))
-	enemy.speed = 1
+	enemy.speed = 0.8
+	if level_2.showing_tutorial:
+		label.text = "Use left mouse button to defend against creatures."
+		await enemy.died
+	print("setting timer")
 	set_timer()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://snt3ph36f5q7"]
+
+[node name="wood" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+rotation = -1.99222
+color = Color(0.6, 0.498039, 0.45098, 1)
+polygon = PackedVector2Array(-22, -42, 0, -3, -8, 3, -30, -38)
+
+[node name="Polygon2D2" type="Polygon2D" parent="."]
+rotation = -2.62301
+color = Color(0.6, 0.498039, 0.45098, 1)
+polygon = PackedVector2Array(-22, -42, 0, -3, -8, 3, -30, -38)
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+rotation = 2.99206
+color = Color(0.6, 0.498039, 0.45098, 1)
+polygon = PackedVector2Array(-22, -42, 0, -3, -8, 3, -30, -38)
+
+[node name="Polygon2D4" type="Polygon2D" parent="."]
+color = Color(0.6, 0.498039, 0.45098, 1)
+polygon = PackedVector2Array(-2.32794, 2.40067, -29.0995, 19.2051, -25.0256, 7.20193, -3.49194, -4.00104)

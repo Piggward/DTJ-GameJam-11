@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://g7a8g6t3b5ri"]
+
+[ext_resource type="Texture2D" uid="uid://dxgddkrehhu4n" path="res://Art/fire.png" id="1_7nu7y"]
+
+[sub_resource type="Curve" id="Curve_ocwtp"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.346667, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.604396), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gqv43"]
+curve = SubResource("Curve_ocwtp")
+
+[sub_resource type="Gradient" id="Gradient_fkgk3"]
+offsets = PackedFloat32Array(0, 0.221311, 1)
+colors = PackedColorArray(0.937255, 0.67451, 0.156863, 1, 0.937255, 0.227451, 0.0470588, 1, 0.607843, 0.101961, 0.0392157, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_cyo8j"]
+gradient = SubResource("Gradient_fkgk3")
+
+[sub_resource type="Curve" id="Curve_j4q8q"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.274725), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_odf5h"]
+curve = SubResource("Curve_j4q8q")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vv6b4"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(1, 0.5, 1)
+emission_shape = 1
+emission_sphere_radius = 18.0
+gravity = Vector3(0, -75, 0)
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_odf5h")
+color_ramp = SubResource("GradientTexture1D_cyo8j")
+alpha_curve = SubResource("CurveTexture_gqv43")
+
+[node name="Burning" type="GPUParticles2D"]
+amount = 250
+process_material = SubResource("ParticleProcessMaterial_vv6b4")
+texture = ExtResource("1_7nu7y")
+lifetime = 1.5
+speed_scale = 0.5
+explosiveness = 0.1
