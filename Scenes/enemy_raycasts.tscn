@@ -1,0 +1,127 @@
+[gd_scene load_steps=2 format=3 uid="uid://ddjtga13bsvv"]
+
+[ext_resource type="Script" path="res://Scripts/enemy_detector.gd" id="1_ns8as"]
+
+[node name="RayCasts" type="Node2D"]
+script = ExtResource("1_ns8as")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 380)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="."]
+rotation = -0.532596
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D3" type="RayCast2D" parent="."]
+rotation = -1.13969
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D4" type="RayCast2D" parent="."]
+rotation = -1.55671
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D5" type="RayCast2D" parent="."]
+rotation = 0.573627
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D6" type="RayCast2D" parent="."]
+rotation = 1.08332
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D8" type="RayCast2D" parent="."]
+rotation = -3.1392
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D9" type="RayCast2D" parent="."]
+rotation = -3.6718
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D10" type="RayCast2D" parent="."]
+rotation = -4.27889
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D11" type="RayCast2D" parent="."]
+rotation = -4.69592
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D12" type="RayCast2D" parent="."]
+rotation = -2.56558
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D13" type="RayCast2D" parent="."]
+rotation = -2.05588
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D7" type="RayCast2D" parent="."]
+rotation = 0.227884
+target_position = Vector2(0, 380)
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D14" type="RayCast2D" parent="."]
+rotation = -0.304712
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D15" type="RayCast2D" parent="."]
+rotation = -0.911803
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D16" type="RayCast2D" parent="."]
+rotation = -1.32883
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D17" type="RayCast2D" parent="."]
+rotation = 0.801511
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D18" type="RayCast2D" parent="."]
+rotation = 1.31121
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D19" type="RayCast2D" parent="."]
+rotation = -2.91132
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D20" type="RayCast2D" parent="."]
+rotation = -3.44391
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D21" type="RayCast2D" parent="."]
+rotation = -4.05101
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D22" type="RayCast2D" parent="."]
+rotation = -4.46803
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D23" type="RayCast2D" parent="."]
+rotation = -2.33769
+target_position = Vector2(0, 380)
+collision_mask = 3
+
+[node name="RayCast2D24" type="RayCast2D" parent="."]
+rotation = -1.82799
+target_position = Vector2(0, 380)
+collision_mask = 3

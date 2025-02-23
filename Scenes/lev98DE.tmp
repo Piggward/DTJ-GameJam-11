@@ -1,0 +1,101 @@
+[gd_scene load_steps=14 format=3 uid="uid://d2dfuycloduxl"]
+
+[ext_resource type="Script" path="res://Scripts/level_2.gd" id="1_d6oyo"]
+[ext_resource type="Texture2D" uid="uid://b2gcxuev6oht6" path="res://Art/WHITE.png" id="2_4wo60"]
+[ext_resource type="PackedScene" uid="uid://cvxshxkyhi8hw" path="res://Scenes/player.tscn" id="2_isn68"]
+[ext_resource type="Shader" path="res://Scenes/sprite_round.gdshader" id="3_6jukw"]
+[ext_resource type="Script" path="res://Scripts/spider_spawner.gd" id="3_f5vwy"]
+[ext_resource type="PackedScene" uid="uid://cqcb7i40w2ryd" path="res://Scenes/bonfire.tscn" id="4_v2wye"]
+[ext_resource type="PackedScene" uid="uid://bupvbevmdsrjo" path="res://Scenes/lighting.tscn" id="5_3i6lh"]
+[ext_resource type="Script" path="res://Scripts/safe_area.gd" id="7_njkfc"]
+[ext_resource type="Script" path="res://Scripts/tinder_label.gd" id="8_1pv6f"]
+[ext_resource type="PackedScene" uid="uid://bgqd7ax0enp5e" path="res://Scenes/gold_area.tscn" id="9_78rnm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0spwv"]
+shader = ExtResource("3_6jukw")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a3ki2"]
+radius = 500.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3huvu"]
+radius = 670.33
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_d6oyo")
+gold_spawn_max_distance = 100000.0
+
+[node name="Background" type="Node2D" parent="."]
+position = Vector2(571, 85)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Background"]
+modulate = Color(0.164706, 0.113725, 0.0509804, 1)
+material = SubResource("ShaderMaterial_0spwv")
+scale = Vector2(300, 300)
+texture = ExtResource("2_4wo60")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Background"]
+modulate = Color(0.647059, 0.54902, 0.152941, 1)
+material = SubResource("ShaderMaterial_0spwv")
+scale = Vector2(200, 200)
+texture = ExtResource("2_4wo60")
+
+[node name="Sprite2D" type="Sprite2D" parent="Background"]
+modulate = Color(0.447059, 0.254902, 0.0745098, 1)
+material = SubResource("ShaderMaterial_0spwv")
+scale = Vector2(100, 100)
+texture = ExtResource("2_4wo60")
+
+[node name="SpiderSpawner" type="Area2D" parent="."]
+position = Vector2(521, 251)
+script = ExtResource("3_f5vwy")
+max_time_until_spawn = 10.0
+diff = 5.0
+spider_distance = 450.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpiderSpawner"]
+shape = SubResource("CircleShape2D_a3ki2")
+
+[node name="CharacterBody2D" parent="." groups=["player"] instance=ExtResource("2_isn68")]
+position = Vector2(421, 356)
+
+[node name="Torch" parent="CharacterBody2D" index="1"]
+position = Vector2(25, -7)
+
+[node name="PointLight2D" parent="CharacterBody2D/Torch" index="1"]
+current_level = 8
+
+[node name="Bonfire" parent="." instance=ExtResource("4_v2wye")]
+position = Vector2(571, 84)
+lit = true
+
+[node name="Lighting" parent="." instance=ExtResource("5_3i6lh")]
+
+[node name="DirectionalLight2D" parent="Lighting" index="1"]
+visible = true
+
+[node name="SafeArea" type="Area2D" parent="."]
+position = Vector2(571, 86)
+collision_mask = 7
+script = ExtResource("7_njkfc")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SafeArea"]
+shape = SubResource("CircleShape2D_3huvu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("8_1pv6f")
+
+[node name="Area2D" parent="." instance=ExtResource("9_78rnm")]
+position = Vector2(-111, 540)
+
+[connection signal="area_entered" from="SafeArea" to="SafeArea" method="_on_area_entered"]
+[connection signal="body_entered" from="SafeArea" to="." method="_on_safe_area_body_entered"]
+[connection signal="body_entered" from="SafeArea" to="SpiderSpawner" method="_on_safe_area_body_entered"]
+[connection signal="body_exited" from="SafeArea" to="." method="_on_safe_area_body_exited"]
+[connection signal="body_exited" from="SafeArea" to="SpiderSpawner" method="_on_safe_area_body_exited"]
+
+[editable path="CharacterBody2D"]
+[editable path="Lighting"]

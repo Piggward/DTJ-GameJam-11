@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgqd7ax0enp5e"]
+
+[ext_resource type="Script" path="res://Scripts/tinderbox_area.gd" id="1_iq7qv"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ixh37"]
+
+[sub_resource type="Gradient" id="Gradient_vhn6e"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u2p0w"]
+gradient = SubResource("Gradient_vhn6e")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.752294, 0.215596)
+
+[node name="Area2D" type="Area2D"]
+collision_mask = 3
+script = ExtResource("1_iq7qv")
+value = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ixh37")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+scale = Vector2(0.981343, 1)
+color = Color(0.937255, 0.67451, 0.156863, 1)
+polygon = PackedVector2Array(-5, -8, 0, -13, 6, -7, 10, 0, 5, 7, 0, 12, -6, 7, -9, 0)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_u2p0w")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

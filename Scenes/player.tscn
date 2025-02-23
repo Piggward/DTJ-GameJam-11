@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://cvxshxkyhi8hw"]
+[gd_scene load_steps=11 format=3 uid="uid://cvxshxkyhi8hw"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_eim3k"]
 [ext_resource type="Script" path="res://Scripts/torch.gd" id="2_ke26v"]
-[ext_resource type="Script" path="res://Scripts/detector.gd" id="3_jixvp"]
 [ext_resource type="Script" path="res://Scripts/light_detector.gd" id="4_dg4wy"]
 
 [sub_resource type="Animation" id="Animation_nnyfx"]
@@ -102,20 +101,6 @@ tracks/3/keys = {
 "method": &"disable"
 }]
 }
-tracks/4/type = "method"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("CharacterBody2D/Torch/PointLight2D")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [-2],
-"method": &"change_level"
-}]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p03dh"]
 _data = {
@@ -134,8 +119,6 @@ height = 750
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 fill_to = Vector2(0.85, 0.85)
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_oxd0b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52gpt"]
 size = Vector2(23, 50)
@@ -168,13 +151,6 @@ texture = SubResource("GradientTexture2D_47ay5")
 script = ExtResource("2_ke26v")
 light_levels = Array[int]([250, 225, 300, 375, 450, 525, 600, 675, 750])
 
-[node name="Detector" type="Area2D" parent="Torch/PointLight2D"]
-collision_mask = 4
-script = ExtResource("3_jixvp")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Torch/PointLight2D/Detector"]
-shape = SubResource("CircleShape2D_oxd0b")
-
 [node name="Timer" type="Timer" parent="Torch/PointLight2D"]
 wait_time = 5.0
 
@@ -203,6 +179,4 @@ shape = SubResource("RectangleShape2D_qgppn")
 color = Color(1, 0, 1, 1)
 polygon = PackedVector2Array(-15, -16, 19, -16, 19, 18, -16, 18)
 
-[connection signal="area_entered" from="Torch/PointLight2D/Detector" to="Torch/PointLight2D/Detector" method="_on_area_entered"]
-[connection signal="area_exited" from="Torch/PointLight2D/Detector" to="Torch/PointLight2D/Detector" method="_on_area_exited"]
 [connection signal="area_entered" from="Torch/AttackArea" to="Torch/AttackArea" method="_on_area_entered"]

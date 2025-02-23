@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b54drotwy0x4i"]
+
+[ext_resource type="PackedScene" uid="uid://bgqd7ax0enp5e" path="res://Scenes/gold_area.tscn" id="1_yxtj6"]
+
+[node name="Area2D" instance=ExtResource("1_yxtj6")]
+value = 10
+
+[node name="Polygon2D" parent="." index="1"]
+color = Color(0.607843, 0.101961, 0.0392157, 1)

@@ -10,8 +10,13 @@ const TURN_SPEED = 10
 var igniting = false
 var bonfire_area: Bonfire
 @onready var point_light_2d: Torch = $Torch/PointLight2D
-var tinderboxes = 0
-signal tinderbox_pickup(tinderboxes: int)
+var gold = 0
+signal gold_pickup(gold: int)
+var distance_travelled = 0.0
+var in_safe_space = true
+
+func reset_distance():
+	distance_travelled = 0.0
 
 func _physics_process(delta: float) -> void:
 	## Add the gravity.
@@ -24,9 +29,9 @@ func _physics_process(delta: float) -> void:
 		
 	if Input.is_action_just_pressed("ignite") and not igniting:
 		start_ignite()
-			
-	if Input.is_action_just_released("ignite"):
-		igniting = false
+			#
+	#if Input.is_action_just_released("ignite"):
+		#igniting = false
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -50,19 +55,20 @@ func _physics_process(delta: float) -> void:
 		#new_rotation = 360 + new_rotation
 		
 	rotation += get_angle_to(get_global_mouse_position()) + deg_to_rad(90)
-	
+	if not in_safe_space:
+		distance_travelled += abs(velocity.x) + abs(velocity.y)
 	move_and_slide()
 	
-func pickup_tinderbox():
-	tinderboxes += 1
-	tinderbox_pickup.emit(tinderboxes)
+func pickup_gold(value: int):
+	gold += value
+	gold_pickup.emit(gold)
 	
-func use_tinderbox():
-	tinderboxes -= 1
-	tinderbox_pickup.emit(tinderboxes)
-	await get_tree().create_timer(1).timeout
-	ignite(3)
-	igniting = false
+#func use_tinderbox():
+	#g -= 1
+	#tinderbox_pickup.emit(tinderboxes)
+	#await get_tree().create_timer(1).timeout
+	#ignite(3)
+	#igniting = false
 	
 func start_ignite():
 	igniting = true
@@ -73,8 +79,6 @@ func start_ignite():
 		else:
 			bonfire_area.light_bonfire()
 			return
-	elif tinderboxes > 0:
-		use_tinderbox()
 	
 func ignite(value: int):
 	point_light_2d.change_level(value)
