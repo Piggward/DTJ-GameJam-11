@@ -20,7 +20,7 @@ func _ready():
 func set_timer():
 	var randiff = randf_range(0, diff)
 	if first_time:
-		await get_tree().create_timer(6).timeout
+		await get_tree().create_timer(5).timeout
 	else:
 		await get_tree().create_timer(max_time_until_spawn - randiff).timeout
 	if spawning:
@@ -50,6 +50,9 @@ func _process(delta):
 func _on_safe_area_body_entered(body):
 	if body is Player:
 		spawning = false
+		for child in get_children():
+			if child is Enemy:
+				child.die()
 	pass # Replace with function body.
 
 

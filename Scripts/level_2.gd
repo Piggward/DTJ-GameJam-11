@@ -37,6 +37,7 @@ var m_upg = 0
 var max_distance = 5700
 var current_distance_goal = 0.0
 @onready var spider_spawner = $SpiderSpawner
+var first_venture_after_tutorial = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -53,7 +54,7 @@ func _ready():
 	pass # Replace with function body.
 	
 func win_game():
-	if player.gold >= 250:
+	if player.gold >= win_cost:
 		game_over_container.visible = true
 		game_over_label.text = "You won!! You're the best dad ever!!"
 		audio_stream_player_2d.stop()
@@ -68,7 +69,7 @@ func purchase_upgrade():
 	if player.gold >= current_upgrade_cost:
 		player.gold -= current_upgrade_cost
 		gold_label.text = str(player.gold)
-		current_upgrade_cost += 3
+		current_upgrade_cost += 1
 		update_shop()
 		return true
 	else:
@@ -94,8 +95,8 @@ func purchase_movement():
 func purchase_shield():
 	if player.has_shield:
 		return false
-	if player.gold >= 40:
-		player.gold -= 40
+	if player.gold >= 30:
+		player.gold -= 30
 		gold_label.text = str(player.gold)
 		return true
 	else:
@@ -144,7 +145,6 @@ func set_distance_goal():
 
 func _on_safe_area_body_entered(body):
 	if body is Player:
-		print("enter")
 		shop.visible = true
 		spawning = false
 		body.in_safe_space = true
@@ -158,12 +158,12 @@ func show_hint(value: String):
 	tutorial_text_container.visible = true
 	tutorial_text.text = value
 	await get_tree().create_timer(4).timeout
-	tutorial_text_container.visible = false
+	if (tutorial_text.text == value):
+		tutorial_text_container.visible = false
 	
 
 func _on_safe_area_body_exited(body):
 	if body is Player:
-		print("exit")
 		shop.visible = false
 		spawning = true
 		body.in_safe_space = false
@@ -171,6 +171,12 @@ func _on_safe_area_body_exited(body):
 		
 		if showing_tutorial:
 			tutorial_text.text = "Rumor has it that the further you venture, the more valueble the treasure"
+		elif first_venture_after_tutorial and not player.has_shield:
+			tutorial_text.text = "Keep going! Here is a free shield to keep you protected"
+			player.add_shield()
+			first_venture_after_tutorial = false
+			await get_tree().create_timer(4).timeout
+			tutorial_text_container.visible = false
 		else:
 			tutorial_text_container.visible = false
 		

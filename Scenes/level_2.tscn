@@ -80,9 +80,9 @@ radius = 10048.2
 script = ExtResource("1_d6oyo")
 gold_spawn_max_distance = 20000.0
 minimum_gold_spawn = 8000.0
-win_cost = 200
+win_cost = 250
 movement_speed_upgrade_cost = 30
-player_gold = 250
+player_gold = 25
 
 [node name="Background" type="Node2D" parent="."]
 position = Vector2(571, 85)
@@ -5713,10 +5713,6 @@ text = "Exit
 "
 
 [node name="Shop" parent="CanvasLayer" instance=ExtResource("10_dbdte")]
-
-[node name="Label" parent="CanvasLayer/Shop/PanelContainer3/PanelContainer" index="0"]
-text = "250 GOLD 
-(Press F to buy)"
 
 [node name="TutorialText" type="PanelContainer" parent="CanvasLayer" groups=["tutlabel"]]
 anchors_preset = 8

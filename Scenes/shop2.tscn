@@ -106,7 +106,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qfrf6")
 [node name="Label" type="Label" parent="ShieldUpgrade/PanelContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.937255, 0.67451, 0.156863, 1)
-text = "40 GOLD 
+text = "30 GOLD 
 (Press V to buy)"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -139,7 +139,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_qfrf6")
 [node name="Label" type="Label" parent="PanelContainer3/PanelContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.937255, 0.67451, 0.156863, 1)
-text = "300 GOLD 
+text = "250 GOLD 
 (Press F to buy)"
 horizontal_alignment = 1
 vertical_alignment = 1
